@@ -1,0 +1,5 @@
+.pio
+.venv
+.vscode
+test.o
+testapp

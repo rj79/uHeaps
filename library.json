@@ -1,0 +1,23 @@
+{
+    "name": "heap",
+    "version": "0.1-dev",
+    "description": "Heap library for microcontrollers.",
+    "keywords": "heap, min-heap, max-heap, ATmega328P, ESP8266, ESP32, microcontroller",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/rj79/uHeaps.git"
+    },
+    "authors": [
+        {
+            "name": "Robert Johansson",
+            "email": "robertrockar@live.com",
+            "url": "",
+            "maintainer": true
+        }
+    ],
+    "license": "MIT",
+    "homepage": "",
+    "dependencies": {},
+    "frameworks": "Arduino",
+    "platforms": "*"
+}
