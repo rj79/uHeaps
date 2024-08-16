@@ -3,10 +3,7 @@
 
 #include <stdint.h>
 #include <iostream>
-
-uint16_t parent(uint16_t id);
-uint16_t leftChild(uint16_t id);
-uint16_t rightChild(uint16_t id);
+#include "heap_common.h"
 
 template<typename T>
 class MinHeap
@@ -20,16 +17,15 @@ public:
     const bool isFull();
     const uint16_t size();
     const uint16_t maxSize();
-    T& get(uint16_t pos);
-    T& min();
-    T removeMin();
-    void insert(T element);
+    T* min();
+    T* removeMin();
+    void insert(T* element);
 
     template <typename S>
     friend std::ostream& operator<<(std::ostream& os, MinHeap<S>& heap);
 private:
-    T* Elements;
-    uint16_t MaxSize;
+    T** Elements;
+    uint16_t Capacity;
     uint16_t Size;
 
     const bool isRoot(uint16_t pos);
@@ -42,10 +38,10 @@ private:
 template <typename T>
 std::ostream& operator<<(std::ostream& os, MinHeap<T>& heap)
 {
-    os << "<MinHeap Size=" << heap.size() << " MaxSize=" << heap.maxSize() << " [";
+    os << "<MinHeap Size=" << heap.size() << " Capacity=" << heap.maxSize() << " [";
     uint16_t size = heap.size();
     for (uint16_t i = 0; i < size; ++i) {
-        os << heap.get(i);
+        os << *heap.get(i);
         if (i < size) {
             os << ", ";
         }
@@ -54,30 +50,15 @@ std::ostream& operator<<(std::ostream& os, MinHeap<T>& heap)
     return os;
 }
 
-uint16_t parent(uint16_t id) 
-{
-    return (id - 1) / 2;
-}
-
-uint16_t leftChild(uint16_t id)
-{
-    return (id << 1) + 1;
-}
-
-uint16_t rightChild(uint16_t id)
-{
-    return (id << 1) + 2;
-}
-
 template <typename T>
 MinHeap<T>::MinHeap(uint16_t maxSize) :
-    MaxSize(maxSize),
+    Capacity(maxSize),
     Size(0)
 {
-    if (MaxSize == 0) {
+    if (Capacity == 0) {
         throw;
     }
-    Elements = new T[MaxSize];
+    Elements = new T*[Capacity];
 }
 
 template <typename T>
@@ -95,7 +76,7 @@ const bool MinHeap<T>::isEmpty()
 template <typename T>
 const bool MinHeap<T>::isFull()
 {
-    return Size == MaxSize;
+    return Size == Capacity;
 }
 
 template <typename T>
@@ -107,20 +88,11 @@ const uint16_t MinHeap<T>::size()
 template <typename T>
 const uint16_t MinHeap<T>::maxSize()
 {
-    return MaxSize;
+    return Capacity;
 }
 
 template <typename T>
-T& MinHeap<T>::get(uint16_t pos)
-{
-    if (!exists(pos)) {
-        throw;
-    }
-    return Elements[pos];
-}
-
-template <typename T>
-T& MinHeap<T>::min()
+T* MinHeap<T>::min()
 {
     if (isEmpty()) {
         throw;
@@ -129,25 +101,22 @@ T& MinHeap<T>::min()
 }
 
 template <typename T>
-T MinHeap<T>::removeMin()
+T* MinHeap<T>::removeMin()
 {
-    //std::cout << "removeMin" << std::endl;
     if (isEmpty()) {
         throw;
     }
-    T result = Elements[0];
+    T* result = Elements[0];
     Elements[0] = Elements[Size - 1];
     --Size; 
     heapify(0); 
 
-    //std::cout << "removeMin => " << result << std::endl;
     return result; 
 }
 
 template <typename T>
-void MinHeap<T>::insert(T element)
+void MinHeap<T>::insert(T* element)
 {
-    //std::cout << "insert " << element << std::endl;
     if (isFull()) {
         throw;
     }
@@ -155,8 +124,7 @@ void MinHeap<T>::insert(T element)
     Elements[Size] = element;
     
     uint16_t pos = Size;
-    //std::cout << Size << std::endl;
-    while (!isRoot(pos) && Elements[pos] < Elements[parent(pos)]) { 
+    while (!isRoot(pos) && *Elements[pos] < *Elements[parent(pos)]) { 
         swap(pos, parent(pos));
         pos = parent(pos); 
     }
@@ -182,8 +150,7 @@ const bool MinHeap<T>::exists(uint16_t pos) {
 template <typename T>
 void MinHeap<T>::swap(uint16_t posA, uint16_t posB)
 {
-    //std::cout << "swap " << posA << "(" << Elements[posA] << ") <-> " << posB << "(" << Elements[posB] << ")" << std::endl;
-    T temp = Elements[posA];
+    T* temp = Elements[posA];
     Elements[posA] = Elements[posB];
     Elements[posB] = temp;
 }
@@ -191,15 +158,14 @@ void MinHeap<T>::swap(uint16_t posA, uint16_t posB)
 template <typename T>
 void MinHeap<T>::heapify(uint16_t pos)
 {
-    //std::cout << "heapify " << pos << std::endl;
     if (!isLeaf(pos)) {
         if (exists(rightChild(pos))) {
-            if (Elements[pos] > Elements[leftChild(pos)]
-                || Elements[pos] > Elements[rightChild(pos)]) {
+            if (*Elements[pos] > *Elements[leftChild(pos)]
+                || *Elements[pos] > *Elements[rightChild(pos)]) {
 
                 // It is not a leaf and a right child exists, therefore a left 
                 // child also exists
-                if (Elements[leftChild(pos)] < Elements[rightChild(pos)]) {
+                if (*Elements[leftChild(pos)] < *Elements[rightChild(pos)]) {
                     swap(pos, leftChild(pos));
                     heapify(leftChild(pos));
                 }
@@ -212,7 +178,7 @@ void MinHeap<T>::heapify(uint16_t pos)
         else {
             // It is not a leaf but there is no right child. 
             // Only a left child exists
-            if (Elements[pos] > Elements[leftChild(pos)]) {
+            if (*Elements[pos] > *Elements[leftChild(pos)]) {
                 swap(pos, leftChild(pos));
                 heapify(leftChild(pos));
             }

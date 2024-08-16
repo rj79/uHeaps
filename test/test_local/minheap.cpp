@@ -25,7 +25,7 @@ private:
 
 std::ostream& operator<<(std::ostream& os, const Element& element)
 {
-  os << "<Element Value=" << element.Value << ">";
+  os << "<Element Value= " << element.Value << ">";
   return os;
 }
 
@@ -60,7 +60,7 @@ void test_right_child()
 
 void test_create()
 {
-  MinHeap<int> heap(3);
+  MinHeap<Element> heap(3);
   TEST_ASSERT_TRUE(heap.isEmpty());
   TEST_ASSERT_FALSE(heap.isFull());
   TEST_ASSERT_EQUAL_UINT16(0, heap.size());
@@ -68,76 +68,59 @@ void test_create()
 
 void test_insert_one_element()
 {
-  MinHeap<int> heap(1);
-  heap.insert(10);
+  MinHeap<Element> heap(1);
+  Element e(10);
+  heap.insert(&e);
   TEST_ASSERT_TRUE(heap.isFull());
-  TEST_ASSERT_EQUAL_INT(10, heap.min());
-  TEST_ASSERT_EQUAL_INT(10, heap.get(0));
+  TEST_ASSERT_EQUAL_INT(10, heap.min()->value());
   TEST_ASSERT_EQUAL_UINT16(1, heap.size());
 }
 
 void test_extract_min_one_element()
 {
-  MinHeap<int> heap(1);
-  heap.insert(10);
-  TEST_ASSERT_EQUAL(10, heap.removeMin());
+  MinHeap<Element> heap(1);
+  Element e(10);
+  heap.insert(&e);
+  TEST_ASSERT_EQUAL(10, heap.removeMin()->value());
   TEST_ASSERT_EQUAL(0, heap.size());
 }
 
 void test_insert_many()
 {
-  MinHeap<int> heap(10);
-  heap.insert(16);
-  heap.insert(8);
-  TEST_ASSERT_EQUAL(8, heap.min());
-  heap.insert(4);
-  TEST_ASSERT_EQUAL(4, heap.min());
-  heap.insert(12);
-  TEST_ASSERT_EQUAL(4, heap.min());
+  MinHeap<Element> heap(10);
+  Element e1(16);
+  Element e2(8);
+  Element e3(4);
+  Element e4(12);
+  heap.insert(&e1);
+  heap.insert(&e2);
+  TEST_ASSERT_EQUAL(8, heap.min()->value());
+  heap.insert(&e3);
+  TEST_ASSERT_EQUAL(4, heap.min()->value());
+  heap.insert(&e4);
+  TEST_ASSERT_EQUAL(4, heap.min()->value());
   TEST_ASSERT_EQUAL(4, heap.size());
 }
 
 void test_remove_many()
 {
-  MinHeap<int> heap(10);
-  heap.insert(16);
-  heap.insert(8);
-  heap.insert(4);
-  heap.insert(12);
-  TEST_ASSERT_EQUAL(4, heap.removeMin());
+  MinHeap<Element> heap(10);
+  Element e1(16);
+  Element e2(8);
+  Element e3(4);
+  Element e4(12);
+  Element e5(100);
+  heap.insert(&e1);
+  heap.insert(&e2);
+  heap.insert(&e3);
+  heap.insert(&e4);
+  TEST_ASSERT_EQUAL(4, heap.removeMin()->value());
   TEST_ASSERT_EQUAL(3, heap.size());
-  heap.insert(100);
-  TEST_ASSERT_EQUAL(8, heap.removeMin());
-  TEST_ASSERT_EQUAL(12, heap.removeMin());
-  TEST_ASSERT_EQUAL(16, heap.removeMin());
-  TEST_ASSERT_EQUAL(100, heap.removeMin());
-  TEST_ASSERT_EQUAL(0, heap.size());
-}
-
-void test_class_template()
-{
-  MinHeap<Element> heap(7);
-  heap.insert(Element(16));
-  heap.insert(Element(8));
-  heap.insert(Element(4));
-  heap.insert(Element(12));
-  TEST_ASSERT_EQUAL(4, heap.min().value());
-  //heap.min().update(100);
-  //heap.heapify(0);
-  
-  int v = heap.removeMin().value();
-  heap.insert(Element(100));
-  TEST_ASSERT_EQUAL(8, heap.min().value());
-  TEST_ASSERT_EQUAL(100, heap.get(3).value());
-
-  TEST_ASSERT_EQUAL(8, heap.removeMin().value());
-  std::cerr << heap << std::endl;
-  TEST_ASSERT_EQUAL(12, heap.removeMin().value());
-  std::cerr << heap << std::endl;
-  TEST_ASSERT_EQUAL(16, heap.removeMin().value());
-  std::cerr << heap << std::endl;
-  TEST_ASSERT_EQUAL(100, heap.removeMin().value());
-  std::cerr << heap << std::endl;
+  heap.insert(&e5);
+  TEST_ASSERT_EQUAL(8, heap.removeMin()->value());
+  TEST_ASSERT_EQUAL(12, heap.removeMin()->value());
+  TEST_ASSERT_EQUAL(16, heap.removeMin()->value());
+  TEST_ASSERT_EQUAL(100, heap.removeMin()->value());
   TEST_ASSERT_EQUAL(0, heap.size());
 }
 
@@ -151,7 +134,6 @@ int main() {
   RUN_TEST(test_extract_min_one_element);
   RUN_TEST(test_insert_many);
   RUN_TEST(test_remove_many);
-  RUN_TEST(test_class_template);
   UNITY_END();
   return 0;
 }
