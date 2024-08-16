@@ -1,8 +1,7 @@
-all:
-	g++ -c src/*.cpp -Iinclude
-	g++ *.o -o testapp
+all: unittests
+
+unittests:
+	pio test -e unittest
 
 clean:
-	rm -f *.o
-	rm -f testapp
-
+	rm testapp src/*.o
