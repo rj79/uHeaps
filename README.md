@@ -1,11 +1,11 @@
 # About
-uHeaps is a small library for working with binary min and max heaps that can be useful for implementing priority queues. Two template classes exist: MinHeap and MaxHeap. The template argument is a class which represents the elements in the heap. For a general description of binary heaps, see https://en.wikipedia.org/wiki/Binary_heap.
+uHeaps is a small library for working with binary min and max heaps that can be useful for implementing priority queues. Two  class templates exist: MinHeap and MaxHeap. The template argument is a class which represents the elements in the heap. For a general description of binary heaps, see https://en.wikipedia.org/wiki/Binary_heap.
 
 # Usage
 First define a class which will represent an element of the heap. The element class must implement operator< and operator>.
-Next instantiate a heap with the element class. See example below.
+Next instantiate a template class MinHeap or MaxHeap with the element class as argument. See example below.
 
-The MinHeap and MaxHeap classes don't do any memory management of the elements. It is the responsibility of the caller. The heap will only keep track of the heap order.
+The MinHeap and MaxHeap class templates don't do any memory management of the elements. It is the responsibility of the caller. The heap will only keep track of the order of the elements.
 
 ## Example element class
 The following class represents an element which simply holds an integer value.
@@ -36,8 +36,13 @@ The following class represents an element which simply holds an integer value.
 # Application example
 Using the above Example class definition:
 
-    // Create a min heap which can hold up to 7 Elements.
+    // Create a min heap which can hold up to 7 elements.
     MinHeap<Element> heap(7);
+
+    // The heap is empty at creation
+    if (heap.isEmpty()) {
+        // do something
+    }
 
     // Create some elements which can be inserted
     Element e1(3);
@@ -65,3 +70,11 @@ Using the above Example class definition:
 
     // Now, the min element is e1
     Element* m = heap.min();
+
+    // Check if the heap is full, which it is not
+    if (heap.isFull()) {
+        // do something
+    }
+
+
+The MaxHeap class works in a similar fashion.
