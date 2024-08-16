@@ -1,33 +1,7 @@
-#include <unity.h>
-#include "MinHeap.h"
 #include <iostream>
-
-class Element
-{
-public:
-  Element() : Value(0) {};
-  Element(int value): Value(value) {};
-  void update(int newValue) {
-    Value = newValue;
-  }
-  bool operator<(const Element& other) {
-    return Value < other.Value;
-  }
-  bool operator>(const Element& other) {
-    return Value > other.Value;
-  }
-  int value() { return Value; };
-
-  friend std::ostream& operator<<(std::ostream& os, const Element& element);
-private:
-  int Value;
-};
-
-std::ostream& operator<<(std::ostream& os, const Element& element)
-{
-  os << "<Element Value= " << element.Value << ">";
-  return os;
-}
+#include <unity.h>
+#include "Element.h"
+#include "MinHeap.h"
 
 void test_parent()
 {

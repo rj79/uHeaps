@@ -3,6 +3,25 @@
 
 #include <stdint.h>
 
+uint16_t parent(uint16_t id);
+uint16_t leftChild(uint16_t id);
+uint16_t rightChild(uint16_t id);
+
+uint16_t parent(uint16_t id) 
+{
+    return (id - 1) / 2;
+}
+
+uint16_t leftChild(uint16_t id)
+{
+    return (id << 1) + 1;
+}
+
+uint16_t rightChild(uint16_t id)
+{
+    return (id << 1) + 2;
+}
+
 template<typename T>
 class Heap
 {
