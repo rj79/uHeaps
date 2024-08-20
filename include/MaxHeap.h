@@ -10,7 +10,7 @@ public:
     
     MaxHeap(uint16_t capacity);
 
-    T* max();
+    T* getMax();
     T* removeMax();
     void insert(T* element);
 
@@ -26,7 +26,7 @@ MaxHeap<T>::MaxHeap(uint16_t capacity) :
 }
 
 template <typename T>
-T* MaxHeap<T>::max()
+T* MaxHeap<T>::getMax()
 {
     if (Heap<T>::isEmpty()) {
         throw;

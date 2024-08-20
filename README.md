@@ -55,7 +55,7 @@ Using the above Example class definition:
     heap.insert(&e3);
 
     // Get the smallest element, which is e3
-    Element* m = heap.min();
+    Element* m = heap.getMin();
 
     // If an element is updated, it needs to be removed from the MinHeap, and then re-added 
 
@@ -69,7 +69,7 @@ Using the above Example class definition:
     heap.insert(m);
 
     // Now, the min element is e1
-    Element* m = heap.min();
+    Element* m = heap.getMin();
 
     // Check if the heap is full, which it is not
     if (heap.isFull()) {

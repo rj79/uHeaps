@@ -46,7 +46,7 @@ void test_max_insert_one_element()
   Element e(10);
   heap.insert(&e);
   TEST_ASSERT_TRUE(heap.isFull());
-  TEST_ASSERT_EQUAL_INT(10, heap.max()->value());
+  TEST_ASSERT_EQUAL_INT(10, heap.getMax()->value());
   TEST_ASSERT_EQUAL_UINT16(1, heap.size());
 }
 
@@ -68,11 +68,11 @@ void test_max_insert_many()
   Element e4(16);
   heap.insert(&e1);
   heap.insert(&e2);
-  TEST_ASSERT_EQUAL(12, heap.max()->value());
+  TEST_ASSERT_EQUAL(12, heap.getMax()->value());
   heap.insert(&e3);
-  TEST_ASSERT_EQUAL(12, heap.max()->value());
+  TEST_ASSERT_EQUAL(12, heap.getMax()->value());
   heap.insert(&e4);
-  TEST_ASSERT_EQUAL(16, heap.max()->value());
+  TEST_ASSERT_EQUAL(16, heap.getMax()->value());
   TEST_ASSERT_EQUAL(4, heap.size());
 }
 

@@ -46,7 +46,7 @@ void test_insert_one_element()
   Element e(10);
   heap.insert(&e);
   TEST_ASSERT_TRUE(heap.isFull());
-  TEST_ASSERT_EQUAL_INT(10, heap.min()->value());
+  TEST_ASSERT_EQUAL_INT(10, heap.getMin()->value());
   TEST_ASSERT_EQUAL_UINT16(1, heap.size());
 }
 
@@ -68,11 +68,11 @@ void test_insert_many()
   Element e4(12);
   heap.insert(&e1);
   heap.insert(&e2);
-  TEST_ASSERT_EQUAL(8, heap.min()->value());
+  TEST_ASSERT_EQUAL(8, heap.getMin()->value());
   heap.insert(&e3);
-  TEST_ASSERT_EQUAL(4, heap.min()->value());
+  TEST_ASSERT_EQUAL(4, heap.getMin()->value());
   heap.insert(&e4);
-  TEST_ASSERT_EQUAL(4, heap.min()->value());
+  TEST_ASSERT_EQUAL(4, heap.getMin()->value());
   TEST_ASSERT_EQUAL(4, heap.size());
 }
 

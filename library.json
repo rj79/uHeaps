@@ -1,6 +1,6 @@
 {
     "name": "heap",
-    "version": "0.1-dev",
+    "version": "0.2.0",
     "description": "Heap library for microcontrollers.",
     "keywords": "heap, min-heap, max-heap, ATmega328P, ESP8266, ESP32, microcontroller",
     "repository": {

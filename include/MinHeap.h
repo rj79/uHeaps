@@ -10,7 +10,7 @@ public:
     
     MinHeap(uint16_t capacity);
 
-    T* min();
+    T* getMin();
     T* removeMin();
     void insert(T* element);
 
@@ -26,7 +26,7 @@ MinHeap<T>::MinHeap(uint16_t capacity) :
 }
 
 template <typename T>
-T* MinHeap<T>::min()
+T* MinHeap<T>::getMin()
 {
     if (Heap<T>::isEmpty()) {
         throw;
