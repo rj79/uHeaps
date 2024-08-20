@@ -1,7 +1,6 @@
 #ifndef MAX_HEAP_H
 #define MAX_HEAP_H
 
-#include <iostream>
 #include "Heap.h"
 
 template<typename T>
@@ -15,27 +14,9 @@ public:
     T* removeMax();
     void insert(T* element);
 
-    template <typename S>
-    friend std::ostream& operator<<(std::ostream& os, MaxHeap<S>& heap);
-
 private:
     void heapify(uint16_t pos);
 };
-
-template <typename T>
-std::ostream& operator<<(std::ostream& os, MaxHeap<T>& heap)
-{
-    os << "<MaxHeap Size=" << heap.size() << " Capacity=" << heap.maxSize() << " [";
-    uint16_t size = heap.size();
-    for (uint16_t i = 0; i < size; ++i) {
-        os << *heap.get(i);
-        if (i < size) {
-            os << ", ";
-        }
-    }
-    os << "]";
-    return os;
-}
 
 template <typename T>
 MaxHeap<T>::MaxHeap(uint16_t capacity) :

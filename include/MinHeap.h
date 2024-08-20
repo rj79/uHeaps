@@ -15,27 +15,9 @@ public:
     T* removeMin();
     void insert(T* element);
 
-    template <typename S>
-    friend std::ostream& operator<<(std::ostream& os, MinHeap<S>& heap);
-
 private:
     void heapify(uint16_t pos);
 };
-
-template <typename T>
-std::ostream& operator<<(std::ostream& os, MinHeap<T>& heap)
-{
-    os << "<MinHeap Size=" << heap.size() << " Capacity=" << heap.maxSize() << " [";
-    uint16_t size = heap.size();
-    for (uint16_t i = 0; i < size; ++i) {
-        os << *heap.get(i);
-        if (i < size) {
-            os << ", ";
-        }
-    }
-    os << "]";
-    return os;
-}
 
 template <typename T>
 MinHeap<T>::MinHeap(uint16_t capacity) :
