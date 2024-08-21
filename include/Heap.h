@@ -52,7 +52,7 @@ Heap<T>::Heap(uint16_t maxSize) :
     Size(0)
 {
     if (Capacity == 0) {
-        throw;
+        Capacity = 1;
     }
     Elements = new T*[Capacity];
 }
