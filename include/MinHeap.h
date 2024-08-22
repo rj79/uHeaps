@@ -97,7 +97,7 @@ T* MinHeap<T>::insert(T* element)
     Heap<T>::Elements[Heap<T>::Size] = element;
     
     uint16_t pos = Heap<T>::Size;
-    while (!Heap<T>::isRoot(pos) && *Heap<T>::Elements[pos] < *Heap<T>::Elements[PARENT(pos)]) { 
+    while (!IS_ROOT(pos) && *Heap<T>::Elements[pos] < *Heap<T>::Elements[PARENT(pos)]) { 
         Heap<T>::swap(pos, PARENT(pos));
         pos = PARENT(pos); 
     }
