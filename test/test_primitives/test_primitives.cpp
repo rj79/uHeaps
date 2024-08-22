@@ -77,12 +77,27 @@ void test_is_leaf()
   // Enough...
 }
 
+void test_is_root()
+{
+  TEST_ASSERT_TRUE(IS_ROOT(0));
+  TEST_ASSERT_FALSE(IS_ROOT(1));
+}
+
+void test_exists()
+{
+  TEST_ASSERT_TRUE(EXISTS(0, 1));
+  TEST_ASSERT_FALSE(EXISTS(1, 1));
+  TEST_ASSERT_FALSE(EXISTS(1, 0));
+}
+
 int main() {
   UNITY_BEGIN();
   RUN_TEST(test_parent);
   RUN_TEST(test_left_child);
   RUN_TEST(test_right_child);
+  RUN_TEST(test_is_root);
   RUN_TEST(test_is_leaf);
+  RUN_TEST(test_exists);
   UNITY_END();
   return 0;
 }

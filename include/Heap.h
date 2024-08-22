@@ -12,7 +12,8 @@
 #define RIGHT_CHILD(x) ((x << 1) + 2)
 #define IS_ROOT(x) (x == 0)
 /** A position is only leaf is there is neither a left nor right child. */
-#define IS_LEAF(x, s) (LEFT_CHILD(x) + 1 > s)
+#define IS_LEAF(x, size) (LEFT_CHILD(x) + 1 > size)
+#define EXISTS(x, size) (x < size)
 
 /**
  * Base class for max-heap and min-heap implementations.
@@ -56,7 +57,6 @@ protected:
     uint16_t Capacity;
     uint16_t Size;
 
-    bool exists(uint16_t pos) const;
     void swap(uint16_t posA, uint16_t posB);
 };
 
@@ -102,12 +102,6 @@ template <typename T>
 uint16_t Heap<T>::capacity() const
 {
     return Capacity;
-}
-
-template <typename T>
-bool Heap<T>::exists(uint16_t pos) const
-{
-    return pos < Size;
 }
 
 template <typename T>

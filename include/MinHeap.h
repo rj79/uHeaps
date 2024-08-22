@@ -111,7 +111,7 @@ template <typename T>
 void MinHeap<T>::heapify(uint16_t pos)
 {
     if (!IS_LEAF(pos, Heap<T>::Size)) {
-        if (Heap<T>::exists(RIGHT_CHILD(pos))) {
+        if (EXISTS(RIGHT_CHILD(pos), Heap<T>::Size)) {
             if (*Heap<T>::Elements[pos] > *Heap<T>::Elements[LEFT_CHILD(pos)]
                 || *Heap<T>::Elements[pos] > *Heap<T>::Elements[RIGHT_CHILD(pos)]) {
                 // It is not a leaf and both left and right children exist
