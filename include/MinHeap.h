@@ -110,7 +110,7 @@ T* MinHeap<T>::insert(T* element)
 template <typename T>
 void MinHeap<T>::heapify(uint16_t pos)
 {
-    if (!Heap<T>::isLeaf(pos)) {
+    if (!IS_LEAF(pos, Heap<T>::Size)) {
         if (Heap<T>::exists(RIGHT_CHILD(pos))) {
             if (*Heap<T>::Elements[pos] > *Heap<T>::Elements[LEFT_CHILD(pos)]
                 || *Heap<T>::Elements[pos] > *Heap<T>::Elements[RIGHT_CHILD(pos)]) {

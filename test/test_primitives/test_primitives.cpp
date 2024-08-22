@@ -30,11 +30,59 @@ void test_right_child()
 
 }
 
+void test_is_leaf()
+{
+  // Test all possibilities in heap of size 1
+  TEST_ASSERT_TRUE(IS_LEAF(0, 1));
+
+  // Test all possibilities in heap of size 2
+  TEST_ASSERT_FALSE(IS_LEAF(0, 2));
+  TEST_ASSERT_TRUE(IS_LEAF(1, 2));
+  
+  // Test all possibilities in heap of size 3
+  TEST_ASSERT_FALSE(IS_LEAF(0, 3));
+  TEST_ASSERT_TRUE(IS_LEAF(1, 3));
+  TEST_ASSERT_TRUE(IS_LEAF(2, 3));
+
+  // Test all possibilities in heap of size 4
+  TEST_ASSERT_FALSE(IS_LEAF(0, 4));
+  TEST_ASSERT_FALSE(IS_LEAF(1, 4));
+  TEST_ASSERT_TRUE(IS_LEAF(2, 4));
+  TEST_ASSERT_TRUE(IS_LEAF(3, 4));
+
+  // Test all possibilities in heap of size 5
+  TEST_ASSERT_FALSE(IS_LEAF(0, 5));
+  TEST_ASSERT_FALSE(IS_LEAF(1, 5));
+  TEST_ASSERT_TRUE(IS_LEAF(2, 5));
+  TEST_ASSERT_TRUE(IS_LEAF(3, 5));
+  TEST_ASSERT_TRUE(IS_LEAF(4, 5));
+
+  // Test all possibilities in heap of size 6
+  TEST_ASSERT_FALSE(IS_LEAF(0, 6));
+  TEST_ASSERT_FALSE(IS_LEAF(1, 6));
+  TEST_ASSERT_FALSE(IS_LEAF(2, 6));
+  TEST_ASSERT_TRUE(IS_LEAF(3, 6));
+  TEST_ASSERT_TRUE(IS_LEAF(4, 6));
+  TEST_ASSERT_TRUE(IS_LEAF(5, 6));
+
+  // Test all possibilities in heap of size 7
+  TEST_ASSERT_FALSE(IS_LEAF(0, 7));
+  TEST_ASSERT_FALSE(IS_LEAF(1, 7));
+  TEST_ASSERT_FALSE(IS_LEAF(2, 7));
+  TEST_ASSERT_TRUE(IS_LEAF(3, 7));
+  TEST_ASSERT_TRUE(IS_LEAF(4, 7));
+  TEST_ASSERT_TRUE(IS_LEAF(5, 7));
+  TEST_ASSERT_TRUE(IS_LEAF(6, 7));
+
+  // Enough...
+}
+
 int main() {
   UNITY_BEGIN();
   RUN_TEST(test_parent);
   RUN_TEST(test_left_child);
   RUN_TEST(test_right_child);
+  RUN_TEST(test_is_leaf);
   UNITY_END();
   return 0;
 }
