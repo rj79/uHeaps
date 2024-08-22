@@ -5,30 +5,30 @@
 
 void test_max_parent()
 {
-  TEST_ASSERT_EQUAL(0, parent(1));
-  TEST_ASSERT_EQUAL(0, parent(2));
-  TEST_ASSERT_EQUAL(1, parent(3));
-  TEST_ASSERT_EQUAL(1, parent(4));
-  TEST_ASSERT_EQUAL(2, parent(5));
-  TEST_ASSERT_EQUAL(2, parent(6));
+  TEST_ASSERT_EQUAL(0, PARENT(1));
+  TEST_ASSERT_EQUAL(0, PARENT(2));
+  TEST_ASSERT_EQUAL(1, PARENT(3));
+  TEST_ASSERT_EQUAL(1, PARENT(4));
+  TEST_ASSERT_EQUAL(2, PARENT(5));
+  TEST_ASSERT_EQUAL(2, PARENT(6));
 }
 
 void test_max_left_child()
 {
-  TEST_ASSERT_EQUAL(1, leftChild(0));  
-  TEST_ASSERT_EQUAL(3, leftChild(1));  
-  TEST_ASSERT_EQUAL(5, leftChild(2));  
-  TEST_ASSERT_EQUAL(7, leftChild(3));  
-  TEST_ASSERT_EQUAL(9, leftChild(4));  
+  TEST_ASSERT_EQUAL(1, LEFT_CHILD(0));  
+  TEST_ASSERT_EQUAL(3, LEFT_CHILD(1));  
+  TEST_ASSERT_EQUAL(5, LEFT_CHILD(2));  
+  TEST_ASSERT_EQUAL(7, LEFT_CHILD(3));  
+  TEST_ASSERT_EQUAL(9, LEFT_CHILD(4));  
 }
 
 void test_max_right_child()
 {
-  TEST_ASSERT_EQUAL(2, rightChild(0));  
-  TEST_ASSERT_EQUAL(4, rightChild(1));  
-  TEST_ASSERT_EQUAL(6, rightChild(2));  
-  TEST_ASSERT_EQUAL(8, rightChild(3));  
-  TEST_ASSERT_EQUAL(10, rightChild(4));  
+  TEST_ASSERT_EQUAL(2, RIGHT_CHILD(0));  
+  TEST_ASSERT_EQUAL(4, RIGHT_CHILD(1));  
+  TEST_ASSERT_EQUAL(6, RIGHT_CHILD(2));  
+  TEST_ASSERT_EQUAL(8, RIGHT_CHILD(3));  
+  TEST_ASSERT_EQUAL(10, RIGHT_CHILD(4));  
 
 }
 

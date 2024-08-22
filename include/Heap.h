@@ -7,24 +7,9 @@
 #include <iostream>
 #endif
 
-uint16_t parent(uint16_t id);
-uint16_t leftChild(uint16_t id);
-uint16_t rightChild(uint16_t id);
-
-uint16_t parent(uint16_t id) 
-{
-    return (id - 1) / 2;
-}
-
-uint16_t leftChild(uint16_t id)
-{
-    return (id << 1) + 1;
-}
-
-uint16_t rightChild(uint16_t id)
-{
-    return (id << 1) + 2;
-}
+#define PARENT(x) ((x - 1) / 2)
+#define LEFT_CHILD(x) ((x << 1) + 1)
+#define RIGHT_CHILD(x) ((x << 1) + 2)
 
 /**
  * Base class for max-heap and min-heap implementations.
@@ -128,7 +113,7 @@ bool Heap<T>::isRoot(uint16_t pos) const
 template <typename T>
 bool Heap<T>::isLeaf(uint16_t pos) const 
 {
-    return leftChild(pos) + 1 > Size;
+    return LEFT_CHILD(pos) + 1 > Size;
 }
 
 template <typename T>

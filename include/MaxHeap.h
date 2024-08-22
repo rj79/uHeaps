@@ -98,9 +98,9 @@ T* MaxHeap<T>::insert(T* element)
     Heap<T>::Elements[Heap<T>::Size] = element;
     
     uint16_t pos = Heap<T>::Size;
-    while (!Heap<T>::isRoot(pos) && *Heap<T>::Elements[pos] > *Heap<T>::Elements[parent(pos)]) { 
-        Heap<T>::swap(pos, parent(pos));
-        pos = parent(pos); 
+    while (!Heap<T>::isRoot(pos) && *Heap<T>::Elements[pos] > *Heap<T>::Elements[PARENT(pos)]) { 
+        Heap<T>::swap(pos, PARENT(pos));
+        pos = PARENT(pos); 
     }
 
     ++Heap<T>::Size;
@@ -112,25 +112,25 @@ template <typename T>
 void MaxHeap<T>::heapify(uint16_t pos)
 {
     if (!Heap<T>::isLeaf(pos)) {
-        if (Heap<T>::exists(rightChild(pos))) {
-            if (*Heap<T>::Elements[pos] < *Heap<T>::Elements[leftChild(pos)]
-                || *Heap<T>::Elements[pos] < *Heap<T>::Elements[rightChild(pos)]) {
+        if (Heap<T>::exists(RIGHT_CHILD(pos))) {
+            if (*Heap<T>::Elements[pos] < *Heap<T>::Elements[LEFT_CHILD(pos)]
+                || *Heap<T>::Elements[pos] < *Heap<T>::Elements[RIGHT_CHILD(pos)]) {
                 // It is not a leaf and both left and right children exist
-                if (*Heap<T>::Elements[leftChild(pos)] > *Heap<T>::Elements[rightChild(pos)]) {
-                    Heap<T>::swap(pos, leftChild(pos));
-                    heapify(leftChild(pos));
+                if (*Heap<T>::Elements[LEFT_CHILD(pos)] > *Heap<T>::Elements[RIGHT_CHILD(pos)]) {
+                    Heap<T>::swap(pos, LEFT_CHILD(pos));
+                    heapify(LEFT_CHILD(pos));
                 }
                 else {
-                    Heap<T>::swap(pos, rightChild(pos));
-                    heapify(rightChild(pos));
+                    Heap<T>::swap(pos, RIGHT_CHILD(pos));
+                    heapify(RIGHT_CHILD(pos));
                 }
             }
         }
         else {
             // It is leaf and only a left child exists
-            if (*Heap<T>::Elements[pos] < *Heap<T>::Elements[leftChild(pos)]) {
-                Heap<T>::swap(pos, leftChild(pos));
-                heapify(leftChild(pos));
+            if (*Heap<T>::Elements[pos] < *Heap<T>::Elements[LEFT_CHILD(pos)]) {
+                Heap<T>::swap(pos, LEFT_CHILD(pos));
+                heapify(LEFT_CHILD(pos));
             }
         }
     }
