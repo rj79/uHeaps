@@ -3,16 +3,49 @@
 
 #include "Heap.h"
 
+/**
+ * A min-heap implementation.
+ */
 template<typename T>
 class MinHeap: public Heap<T>
 {
 public:
-    
+    /**
+     * Create a min heap that can hold pointers to up to the specified number of 
+     * elements.
+     * @param capacity The max amount of elements the heap can contain.
+     */
     MinHeap(uint16_t capacity);
 
-    T* getMin();
+    /**
+     * Return the smallest element in the heap.
+     * @return The smallest element in the heap.
+     */
+    T* getMin() const;
+
+    /**
+     * Inserts a new element in the heap. If an element is inserted which has 
+     * the same rank as an already existing element, the already existing
+     * element will be placed before the new element.
+     * @param element The element to insert.
+     * @return The element pointer if there was enough space left to insert, 
+     * nullptr otherwise.
+     */
+    T* insert(T* element);
+
+    /**
+     * Removes the smallest element in the heap. The element is not deleted, it 
+     * it just removed from the heap.
+     * @return A pointer to the removed element.
+     */
     T* removeMin();
-    void insert(T* element);
+
+    /**
+     * Updates the heap to be ordered again after the smallest element has been 
+     * changed. This is more efficient than calling x = removeMin() and then 
+     * insert(x) after x has been updated.
+     */
+    void updateMin();
 
 private:
     void heapify(uint16_t pos);
@@ -26,10 +59,10 @@ MinHeap<T>::MinHeap(uint16_t capacity) :
 }
 
 template <typename T>
-T* MinHeap<T>::getMin()
+T* MinHeap<T>::getMin() const
 {
     if (Heap<T>::isEmpty()) {
-        throw;
+        return nullptr;
     }
     return Heap<T>::Elements[0];
 }
@@ -38,7 +71,7 @@ template <typename T>
 T* MinHeap<T>::removeMin()
 {
     if (Heap<T>::isEmpty()) {
-        throw;
+        return nullptr;
     }
     T* result = Heap<T>::Elements[0];
     Heap<T>::Elements[0] = Heap<T>::Elements[Heap<T>::Size - 1];
@@ -49,10 +82,16 @@ T* MinHeap<T>::removeMin()
 }
 
 template <typename T>
-void MinHeap<T>::insert(T* element)
+void MinHeap<T>::updateMin()
+{
+    heapify(0);
+}
+
+template <typename T>
+T* MinHeap<T>::insert(T* element)
 {
     if (Heap<T>::isFull()) {
-        throw;
+        return nullptr;
     }
     
     Heap<T>::Elements[Heap<T>::Size] = element;
@@ -64,6 +103,8 @@ void MinHeap<T>::insert(T* element)
     }
 
     ++Heap<T>::Size;
+
+    return element;
 }
 
 template <typename T>
@@ -73,9 +114,7 @@ void MinHeap<T>::heapify(uint16_t pos)
         if (Heap<T>::exists(rightChild(pos))) {
             if (*Heap<T>::Elements[pos] > *Heap<T>::Elements[leftChild(pos)]
                 || *Heap<T>::Elements[pos] > *Heap<T>::Elements[rightChild(pos)]) {
-
-                // It is not a leaf and a right child exists, therefore a left 
-                // child also exists
+                // It is not a leaf and both left and right children exist
                 if (*Heap<T>::Elements[leftChild(pos)] < *Heap<T>::Elements[rightChild(pos)]) {
                     Heap<T>::swap(pos, leftChild(pos));
                     heapify(leftChild(pos));
@@ -87,8 +126,7 @@ void MinHeap<T>::heapify(uint16_t pos)
             }
         }
         else {
-            // It is not a leaf but there is no right child. 
-            // Only a left child exists
+            // It is leaf and only a left child exists
             if (*Heap<T>::Elements[pos] > *Heap<T>::Elements[leftChild(pos)]) {
                 Heap<T>::swap(pos, leftChild(pos));
                 heapify(leftChild(pos));

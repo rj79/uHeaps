@@ -17,9 +17,11 @@ public:
   bool operator>(const Element& other) {
     return Value > other.Value;
   }
-  int value() { return Value; };
+  int value() const { return Value; };
 
-  friend std::ostream& operator<<(std::ostream& os, const Element& element);
+  friend std::ostream& operator<<(std::ostream& stream, const Element& element);
+
+
 private:
   int Value;
 };

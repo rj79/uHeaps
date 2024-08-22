@@ -3,6 +3,10 @@
 
 #include <stdint.h>
 
+#ifdef ENABLE_IOSTREAM
+#include <iostream>
+#endif
+
 uint16_t parent(uint16_t id);
 uint16_t leftChild(uint16_t id);
 uint16_t rightChild(uint16_t id);
@@ -22,6 +26,10 @@ uint16_t rightChild(uint16_t id)
     return (id << 1) + 2;
 }
 
+/**
+ * Base class for max-heap and min-heap implementations.
+ * Contains common data and methods.
+ */
 template<typename T>
 class Heap
 {
@@ -30,17 +38,38 @@ public:
     Heap(uint16_t capacity);
     virtual ~Heap();
 
+    /**
+     * @return True if the heap is empty, false otherwise.
+     */
     bool isEmpty() const;
+
+    /**
+     * @return True if the heap is full, false otherwise.
+     */
     bool isFull() const;
+
+    /**
+     * @return The current number of elements in the heap.
+     */
     uint16_t size() const;
+
+    /**
+     * @return The maximum number of elements the heap can hold.
+     */
     uint16_t capacity() const;
 
+    #ifdef ENABLE_IOSTREAM
+    template <typename U>
+    friend std::ostream& operator<<(std::ostream& os, const Heap<U>& heap);
+    #endif
+    
 protected:
     T** Elements;
     uint16_t Capacity;
     uint16_t Size;
 
     bool isRoot(uint16_t pos) const;
+    /** A position is only leaf is there is neither a left nor right child. */
     bool isLeaf(uint16_t pos) const;
     bool exists(uint16_t pos) const;
     void swap(uint16_t posA, uint16_t posB);
@@ -55,6 +84,9 @@ Heap<T>::Heap(uint16_t maxSize) :
         Capacity = 1;
     }
     Elements = new T*[Capacity];
+    for (uint16_t i = 0; i < Capacity; ++i) {
+        Elements[i] = nullptr;
+    }
 }
 
 template <typename T>
@@ -96,7 +128,7 @@ bool Heap<T>::isRoot(uint16_t pos) const
 template <typename T>
 bool Heap<T>::isLeaf(uint16_t pos) const 
 {
-    return (pos << 1) >= Size;
+    return leftChild(pos) + 1 > Size;
 }
 
 template <typename T>
@@ -112,5 +144,22 @@ void Heap<T>::swap(uint16_t posA, uint16_t posB)
     Elements[posA] = Elements[posB];
     Elements[posB] = temp;
 }
+
+#ifdef ENABLE_IOSTREAM
+template <typename U>
+std::ostream& operator<<(std::ostream& os, const Heap<U>& heap)
+{
+    os << "<Heap Size=" << heap.size() << " Capacity=" << heap.capacity() << " [";
+    uint16_t size = heap.size();
+    for (uint16_t i = 0; i < size; ++i) {
+        os << *heap.Elements[i];
+        if (i + 1 < size) {
+            os << ", ";
+        }
+    }
+    os << "]>";
+    return os;
+} 
+#endif // UNITTEST_DEBUG
 
 #endif

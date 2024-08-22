@@ -38,6 +38,12 @@ Using the above Example class definition:
 
     // Create a min heap which can hold up to 7 elements.
     MinHeap<Element> heap(7);
+    
+    // Size is 0
+    heap.size();
+
+    // Capacity is 7
+    heap.capacity();
 
     // The heap is empty at creation
     if (heap.isEmpty()) {
@@ -57,8 +63,6 @@ Using the above Example class definition:
     // Get the smallest element, which is e3
     Element* m = heap.getMin();
 
-    // If an element is updated, it needs to be removed from the MinHeap, and then re-added 
-
     // Remove and return the smallest element. Note that the element is only removed from the heap, it still exists and has not been destroyed.
     m = heap.removeMin();
 
@@ -75,6 +79,13 @@ Using the above Example class definition:
     if (heap.isFull()) {
         // do something
     }
+
+    // A more efficient way to update the heap when changing the smallest element is to change its value and then call updateMin() as follows:
+    Element* m = heap.getMin();
+    m.Value = 7;
+    heap.updateMin();
+
+    // Now e2 is the smallest element.
 
 
 The MaxHeap class works in a similar fashion.
