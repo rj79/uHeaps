@@ -1,0 +1,40 @@
+#include <unity.h>
+#include "Heap.h"
+
+void test_parent()
+{
+  TEST_ASSERT_EQUAL(0, PARENT(1));
+  TEST_ASSERT_EQUAL(0, PARENT(2));
+  TEST_ASSERT_EQUAL(1, PARENT(3));
+  TEST_ASSERT_EQUAL(1, PARENT(4));
+  TEST_ASSERT_EQUAL(2, PARENT(5));
+  TEST_ASSERT_EQUAL(2, PARENT(6));
+}
+
+void test_left_child()
+{
+  TEST_ASSERT_EQUAL(1, LEFT_CHILD(0));  
+  TEST_ASSERT_EQUAL(3, LEFT_CHILD(1));  
+  TEST_ASSERT_EQUAL(5, LEFT_CHILD(2));  
+  TEST_ASSERT_EQUAL(7, LEFT_CHILD(3));  
+  TEST_ASSERT_EQUAL(9, LEFT_CHILD(4));  
+}
+
+void test_right_child()
+{
+  TEST_ASSERT_EQUAL(2, RIGHT_CHILD(0));  
+  TEST_ASSERT_EQUAL(4, RIGHT_CHILD(1));  
+  TEST_ASSERT_EQUAL(6, RIGHT_CHILD(2));  
+  TEST_ASSERT_EQUAL(8, RIGHT_CHILD(3));  
+  TEST_ASSERT_EQUAL(10, RIGHT_CHILD(4));  
+
+}
+
+int main() {
+  UNITY_BEGIN();
+  RUN_TEST(test_parent);
+  RUN_TEST(test_left_child);
+  RUN_TEST(test_right_child);
+  UNITY_END();
+  return 0;
+}

@@ -3,36 +3,8 @@
 #include "Element.h"
 #include "MaxHeap.h"
 
-void test_max_parent()
-{
-  TEST_ASSERT_EQUAL(0, PARENT(1));
-  TEST_ASSERT_EQUAL(0, PARENT(2));
-  TEST_ASSERT_EQUAL(1, PARENT(3));
-  TEST_ASSERT_EQUAL(1, PARENT(4));
-  TEST_ASSERT_EQUAL(2, PARENT(5));
-  TEST_ASSERT_EQUAL(2, PARENT(6));
-}
 
-void test_max_left_child()
-{
-  TEST_ASSERT_EQUAL(1, LEFT_CHILD(0));  
-  TEST_ASSERT_EQUAL(3, LEFT_CHILD(1));  
-  TEST_ASSERT_EQUAL(5, LEFT_CHILD(2));  
-  TEST_ASSERT_EQUAL(7, LEFT_CHILD(3));  
-  TEST_ASSERT_EQUAL(9, LEFT_CHILD(4));  
-}
-
-void test_max_right_child()
-{
-  TEST_ASSERT_EQUAL(2, RIGHT_CHILD(0));  
-  TEST_ASSERT_EQUAL(4, RIGHT_CHILD(1));  
-  TEST_ASSERT_EQUAL(6, RIGHT_CHILD(2));  
-  TEST_ASSERT_EQUAL(8, RIGHT_CHILD(3));  
-  TEST_ASSERT_EQUAL(10, RIGHT_CHILD(4));  
-
-}
-
-void test_max_create()
+void test_create()
 {
   MaxHeap<Element> heap(3);
   TEST_ASSERT_TRUE(heap.isEmpty());
@@ -41,7 +13,7 @@ void test_max_create()
   TEST_ASSERT_EQUAL_UINT16(3, heap.capacity());
 }
 
-void test_max_insert_one_element()
+void test_insert_one_element()
 {
   MaxHeap<Element> heap(1);
   Element e(10);
@@ -79,7 +51,7 @@ void test_remove_when_empty()
   TEST_ASSERT_EQUAL(0, heap.size());
 }
 
-void test_max_extract_max_one_element()
+void test_extract_one_element()
 {
   MaxHeap<Element> heap(1);
   Element e(10);
@@ -88,7 +60,7 @@ void test_max_extract_max_one_element()
   TEST_ASSERT_EQUAL(0, heap.size());
 }
 
-void test_max_insert_many()
+void test_insert_many()
 {
   MaxHeap<Element> heap(10);
   Element e1(12);
@@ -105,7 +77,7 @@ void test_max_insert_many()
   TEST_ASSERT_EQUAL(4, heap.size());
 }
 
-void test_max_remove_many()
+void test_remove_many()
 {
   MaxHeap<Element> heap(10);
   Element e1(12);
@@ -154,15 +126,12 @@ void test_update_max()
 
 int main() {
   UNITY_BEGIN();
-  RUN_TEST(test_max_parent);
-  RUN_TEST(test_max_left_child);
-  RUN_TEST(test_max_right_child);
-  RUN_TEST(test_max_create);
-  RUN_TEST(test_max_insert_one_element);
+  RUN_TEST(test_create);
+  RUN_TEST(test_insert_one_element);
   RUN_TEST(test_insert_same_value);
-  RUN_TEST(test_max_extract_max_one_element);
-  RUN_TEST(test_max_insert_many);
-  RUN_TEST(test_max_remove_many);
+  RUN_TEST(test_extract_one_element);
+  RUN_TEST(test_insert_many);
+  RUN_TEST(test_remove_many);
   RUN_TEST(test_insert_when_full);
   RUN_TEST(test_remove_when_empty);
   RUN_TEST(test_update_max);
