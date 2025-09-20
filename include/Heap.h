@@ -7,7 +7,7 @@
 #include <iostream>
 #endif
 
-#define PARENT(x) ((x - 1) / 2)
+#define PARENT(x) ((x - 1) >> 1)
 #define LEFT_CHILD(x) ((x << 1) + 1)
 #define RIGHT_CHILD(x) ((x << 1) + 2)
 #define IS_ROOT(x) (x == 0)
