@@ -1,7 +1,9 @@
 #ifndef ELEMENT_H
 #define ELEMENT_H
 
+#ifdef ENABLE_IOSTREAM
 #include <iostream>
+#endif
 
 class Element
 {
@@ -19,8 +21,9 @@ public:
   }
   int value() const { return Value; };
 
+  #ifdef ENABLE_IOSTREAM
   friend std::ostream& operator<<(std::ostream& stream, const Element& element);
-
+  #endif
 
 private:
   int Value;
