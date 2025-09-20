@@ -75,8 +75,7 @@ T* MaxHeap<T>::removeMax()
     }
     T* result = Heap<T>::Elements[0];
     Heap<T>::Elements[0] = Heap<T>::Elements[Heap<T>::Size - 1];
-    --Heap<T>::Size; 
-    std::cerr << "After removeMax before heapify: " << *this << std::endl;
+    --Heap<T>::Size;
     heapify(0); 
 
     return result; 
